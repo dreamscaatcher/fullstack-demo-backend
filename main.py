@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import pandas as pd
 import joblib
+from sklearn.preprocessing import OrdinalEncoder
 
 app = FastAPI(title="Salary Prediction API")
 
@@ -24,7 +25,11 @@ class PredictionFeatures(BaseModel):
     job_title: str
 
 # Load model
-model = joblib.load('lin_regress.sav')
+try:
+    model = joblib.load('lin_regress.sav')
+except Exception as e:
+    print(f"Error loading model: {e}")
+    model = None
 
 @app.get("/")
 async def read_root():
@@ -32,6 +37,9 @@ async def read_root():
 
 @app.post("/predict")
 async def predict(features: PredictionFeatures):
+    if not model:
+        raise HTTPException(status_code=500, detail="Model not loaded")
+    
     try:
         # Create DataFrame with single row
         input_df = pd.DataFrame([{
