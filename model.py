@@ -7,7 +7,7 @@ import joblib
 
 # Load and filter data for specific job titles
 salary_data = pd.read_csv('data/ds_salaries.csv')
-valid_titles = ['Data Engineer', 'Data Manager', 'Data Scientist', 'Machine Learning Engineer']
+valid_titles = ['Data Engineer', 'Data Scientist', 'Machine Learning Engineer']
 salary_data = salary_data[salary_data['job_title'].isin(valid_titles)]
 
 # Select features
