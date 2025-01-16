@@ -43,13 +43,18 @@ async def predict(features: PredictionFeatures):
         encoder = OrdinalEncoder(categories=[['S', 'M', 'L']])
         input_df['company_size_encoded'] = encoder.fit_transform(input_df[['company_size']])
 
+        # Drop original columns before getting dummies
+        input_df = input_df.drop(columns=['experience_level', 'company_size'])
+        
+        # Get dummies in same order as training
         input_df = pd.get_dummies(input_df, columns=['employment_type', 'job_title'])
         
-        # Get expected column names from model
+        # Log columns for debugging
         logger.debug(f"Input columns: {input_df.columns}")
         
-        required_columns = ['experience_level_encoded', 'company_size_encoded', 
-                          'employment_type_FL', 'employment_type_FT', 'employment_type_PT',
+        # Required columns in exact order from training
+        required_columns = ['experience_level_encoded', 'company_size_encoded',
+                          'employment_type_FL', 'employment_type_FT',
                           'job_title_Data Engineer', 'job_title_Data Manager',
                           'job_title_Data Scientist', 'job_title_Machine Learning Engineer']
                           
