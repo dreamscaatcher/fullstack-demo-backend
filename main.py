@@ -70,7 +70,6 @@ async def predict(features: PredictionFeatures):
             'employment_type_FT', 
             'employment_type_PT',
             'job_title_Data Engineer', 
-            'job_title_Data Manager',
             'job_title_Data Scientist', 
             'job_title_Machine Learning Engineer'
         ]
