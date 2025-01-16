@@ -49,7 +49,8 @@ async def predict(features: PredictionFeatures):
         logger.debug(f"Input columns: {input_df.columns}")
         
         required_columns = ['experience_level_encoded', 'company_size_encoded', 
-                          'employment_type_PT', 'job_title_Data Manager',
+                          'employment_type_FL', 'employment_type_FT', 'employment_type_PT',
+                          'job_title_Data Engineer', 'job_title_Data Manager',
                           'job_title_Data Scientist', 'job_title_Machine Learning Engineer']
                           
         # Initialize missing columns with 0
